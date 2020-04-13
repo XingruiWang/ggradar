@@ -8,7 +8,7 @@
 #' 
 #' @source 
 #' Code adapted from a solution posted by Tony M to \url{http://stackoverflow.com/questions/9614433/creating-radar-chart-a-k-a-star-plot-spider-plot-using-ggplot2-in-r}.
-CalculateGroupPath <- function(df) {
+CalculateGroupPath <- function(df, type) {
   path <- df[, 1]
   
   ## find increment
@@ -39,5 +39,6 @@ CalculateGroupPath <- function(df) {
   # Make sure that name of first column matches that of input data (in case !="group")
   colnames(graphData)[1] <- colnames(df)[1]
   graphData$group <- factor(graphData$group, levels=levels(df[, 1]) ) # keep group order
+  graphData$type <- type
   graphData # data frame returned by function
 }
