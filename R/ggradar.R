@@ -95,6 +95,7 @@ ggradar <- function(plot.data,
                     group.line.width = 1.5,
                     group.point.size = 6,
                     group.colours = NULL,
+                    type=NULL,
                     background.circle.colour = "#D7D6D1",
                     background.circle.transparency = 0.2,
                     plot.legend = if (nrow(plot.data) > 1) TRUE else FALSE,
@@ -139,7 +140,7 @@ ggradar <- function(plot.data,
   # print(plot.data.offset)
   # (b) convert into radial coords
   group <- NULL
-  group$path <- CalculateGroupPath(plot.data.offset)
+  group$path <- CalculateGroupPath(plot.data.offset, type)
 
   # print(group$path)
   # (c) Calculate coordinates required to plot radial variable axes
@@ -265,12 +266,12 @@ ggradar <- function(plot.data,
 
   # ... + group (cluster) 'paths'
   base <- base + geom_path(
-    data = group$path, aes(x = x, y = y, group = group, colour = group),
+    data = group$path, aes(x = x, y = y, group = group, colour = type),
     size = group.line.width
   )
 
   # ... + group points (cluster data)
-  base <- base + geom_point(data = group$path, aes(x = x, y = y, group = group, colour = group), size = group.point.size)
+  base <- base + geom_point(data = group$path, aes(x = x, y = y, group = group, colour = type), size = group.point.size)
 
   # ... + amend Legend title
   if (plot.legend == TRUE) base <- base + labs(colour = legend.title, size = legend.text.size)
